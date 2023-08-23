@@ -1,4 +1,4 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, GPTQConfig
 
 
 from constants import (
@@ -24,8 +24,8 @@ special_tokens = {
 
 
 def get_model():
-    tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, padding_side="left")
+    tokenizer = AutoTokenizer.from_pretrained("./models/bigcode/starcodebase-1b/", padding_side="left", local_files_only=True)
     tokenizer.add_special_tokens(special_tokens)
-    model = AutoModelForCausalLM.from_pretrained(model_name, load_in_8bit=True, device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained("./models/bigcode/starcodebase-1b/", device_map="auto", local_files_only=True)
 
     return model, tokenizer
