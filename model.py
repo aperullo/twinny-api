@@ -1,31 +1,26 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer, GPTQConfig
 
+from configuration import Configuration
+from pathlib import Path
 
-from constants import (
-    EOD,
-    FIM_MIDDLE,
-    FIM_PREFIX,
-    FIM_SUFFIX,
-    FIM_PAD,
-    tokenizer_name,
-    model_name,
-)
+def get_model(config: Configuration):
 
-special_tokens = {
+    special_tokens = {
     "additional_special_tokens": [
-        EOD,
-        FIM_PREFIX,
-        FIM_MIDDLE,
-        FIM_SUFFIX,
-        FIM_PAD,
+        config.EOD,
+        config.FIM_PREFIX,
+        config.FIM_MIDDLE,
+        config.FIM_SUFFIX,
+        config.FIM_PAD,
     ],
-    "pad_token": EOD,
+    "pad_token": config.EOD,
 }
 
+    tokenizer_path = f"{config.models_dir}/{config.tokenizer_name}/"
+    model_path = f"{config.models_dir}/{config.models_name}/"
 
-def get_model():
-    tokenizer = AutoTokenizer.from_pretrained("./models/bigcode/starcodebase-1b/", padding_side="left", local_files_only=True)
+    tokenizer = AutoTokenizer.from_pretrained(tokenizer_path, padding_side="left", local_files_only=True)
     tokenizer.add_special_tokens(special_tokens)
-    model = AutoModelForCausalLM.from_pretrained("./models/bigcode/starcodebase-1b/", device_map="auto", local_files_only=True)
+    model = AutoModelForCausalLM.from_pretrained(model_path, device_map="auto", local_files_only=True)
 
     return model, tokenizer

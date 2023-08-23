@@ -6,16 +6,12 @@ from typing import List, Optional
 
 from model import get_model
 
-from constants import (
-    EOD,
-    FIM_MIDDLE,
-    FIM_PREFIX,
-    FIM_SUFFIX,
-    device,
-    PORT
-)
+from configuration import Configuration
 
-model, tokenizer = get_model()
+config = Configuration()
+device = config.device
+
+model, tokenizer = get_model(config)
 
 app = FastAPI()
 
@@ -57,8 +53,8 @@ def codegen(payload: HFPayload) -> str:
             pad_token_id=tokenizer.pad_token_id,
         )
     decoded = tokenizer.decode(outputs[0], skip_special_tokens=False)
-    start = decoded.find(FIM_MIDDLE) + len(FIM_MIDDLE)
-    end = decoded.find(EOD, start) or len(decoded)
+    start = decoded.find(config.FIM_MIDDLE) + len(config.FIM_MIDDLE)
+    end = decoded.find(config.EOD, start) or len(decoded)
     completion = decoded[start:end]
     print(f"Generated: {completion}")
 
@@ -71,4 +67,4 @@ async def completions(payload: HFPayload):
 
 
 if __name__ == "__main__":
-    uvicorn.run("api:app", host="0.0.0.0", port=PORT)
+    uvicorn.run("api:app", host="0.0.0.0", port=config.port)
