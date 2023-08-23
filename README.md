@@ -1,3 +1,10 @@
+
+This fork of twinny-api works with the hugging face autocompletion plugin.
+
+Further work is to be done to make it work gptq and other less vram intense models. It was tested with starcoder-1b.
+
+## Original readme
+
 ### twinny-api
 
 **A locally hosted AI code completion server similar to GitHub Copilot, but with 100% privacy.**
