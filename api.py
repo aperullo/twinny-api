@@ -58,6 +58,8 @@ def codegen(payload: HFPayload) -> str:
     completion = decoded[start:end]
     print(f"Generated: {completion}")
 
+    # TODO: investigate the one_line code that used to live here.
+
     return completion
 
 
