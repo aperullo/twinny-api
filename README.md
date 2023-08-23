@@ -3,6 +3,12 @@ This fork of twinny-api works with the hugging face autocompletion plugin.
 
 Further work is to be done to make it work gptq and other less vram intense models. It was tested with starcoder-1b.
 
+TODO:
+- Investigate one-line code that used to be in repo
+- Find other models that will work with this (presumably any HF model that works with AutoModelForCausalLM), maybe even non-code model
+    - But the model probably needs to have been trained with fill-in-middle fine-tuning
+- Figure out how to get gptq working so we can use lower vram models like stablecode.
+
 ### Docker
 
 To run in docker
