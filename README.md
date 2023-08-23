@@ -3,6 +3,18 @@ This fork of twinny-api works with the hugging face autocompletion plugin.
 
 Further work is to be done to make it work gptq and other less vram intense models. It was tested with starcoder-1b.
 
+### Docker
+
+To run in docker
+
+```
+docker run --gpus=all -it \
+  -v ./models:/models \
+  -e MODELS_NAME="bigcode/starcodebase-1b" \
+  -p 5000:5000 \
+  twinny-api
+```
+
 ## Original readme
 
 ### twinny-api
